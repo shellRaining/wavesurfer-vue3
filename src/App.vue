@@ -5,6 +5,7 @@ import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram";
 import { onMounted } from "vue";
 
 let wavesurfer: WaveSurfer;
+let spectrogram: Spectrogram;
 let minPixPerSec: number;
 
 function registWaveSurferEvents() {
@@ -18,12 +19,11 @@ function registWaveSurferEvents() {
   wavesurfer.on("click", () => wavesurfer.play());
 }
 function registWaveSurferPlugins() {
-  wavesurfer.registerPlugin(
-    Spectrogram.create({
-      labels: true,
-      scale: "linear",
-    }),
-  );
+  spectrogram = Spectrogram.create({
+    labels: true,
+    scale: "linear",
+  });
+  wavesurfer.registerPlugin(spectrogram);
 }
 function zoom(scale: number) {
   const oldPixPerSec = wavesurfer.options.minPxPerSec;
